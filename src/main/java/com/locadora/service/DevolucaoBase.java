@@ -8,9 +8,9 @@ import com.locadora.repository.DevolucaoRepository;
 import java.time.LocalDateTime;
 
 public abstract class DevolucaoBase {
-    private AluguelRepository aluguelRepository;
-    private AgenciaRepository agenciaRepository;
-    private DevolucaoRepository devolucaoRepository;
+    private final AluguelRepository aluguelRepository;
+    private final AgenciaRepository agenciaRepository;
+    private final DevolucaoRepository devolucaoRepository;
 
     public DevolucaoBase(AluguelRepository aluguelRepository, AgenciaRepository agenciaRepository, DevolucaoRepository devolucaoRepository) {
         this.aluguelRepository = aluguelRepository;
@@ -37,10 +37,14 @@ public abstract class DevolucaoBase {
     }
 
     public void gerarComprovante(Devolucao devolucao) {
-        System.out.println("----------------- Comprovante de Devolucao -----------------");
-        System.out.println(devolucao.aluguel());
-        System.out.println("Agencia de Devolução" + devolucao.agencia());
-        System.out.println("Data e Hora de Devolução" + devolucao.dataHoraDevolucao());
-        System.out.println("Valor Total" + devolucao.valorTotal());
+        System.out.println("****************************************");
+        System.out.println("*        Comprovante de Devolucao      *");
+        System.out.println("****************************************");
+        System.out.println("Cliente: " + devolucao.aluguel().getCliente());
+        System.out.println("Veículo: " + devolucao.aluguel().getVeiculo());
+        System.out.println("Data de Aluguel: " + devolucao.aluguel().getDataHoraAluguel());
+        System.out.println("Data de Devolução: " + devolucao.dataHoraDevolucao());
+        System.out.println("Agência de Devolução: " + devolucao.agencia());
+        System.out.println("Valor Total: " + devolucao.valorTotal());
     }
 }

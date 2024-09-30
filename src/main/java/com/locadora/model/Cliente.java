@@ -1,17 +1,17 @@
 package com.locadora.model;
 
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 public record Cliente(Long id, String nome, String documento, TipoCliente tipo) {
-    public Cliente {
-        if (nome == null || nome.isBlank()) {
-            throw new IllegalArgumentException("Nome do cliente não pode ser nulo ou vazio");
-        }
-        if (documento == null || documento.isBlank()) {
-            throw new IllegalArgumentException("Documento do cliente não pode ser nulo ou vazio");
-        }
-        if (tipo == null) {
-            throw new IllegalArgumentException("Tipo do cliente não pode ser nulo");
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cliente cliente)) return false;
+        return Objects.equals(id, cliente.id) && Objects.equals(nome, cliente.nome) && Objects.equals(documento, cliente.documento) && tipo == cliente.tipo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, documento, tipo);
     }
 }

@@ -3,6 +3,7 @@ package com.locadora.service.Impl;
 import com.locadora.model.Veiculo;
 import com.locadora.repository.AgenciaRepository;
 import com.locadora.repository.AluguelRepository;
+import com.locadora.repository.DevolucaoRepository;
 import com.locadora.service.DevolucaoBase;
 
 import java.time.LocalDateTime;
@@ -10,8 +11,8 @@ import java.time.temporal.ChronoUnit;
 
 public class DevolucaoPJ extends DevolucaoBase {
 
-    public DevolucaoPJ(AluguelRepository aluguelRepository, AgenciaRepository agenciaRepository) {
-        super(aluguelRepository, agenciaRepository);
+    public DevolucaoPJ(AluguelRepository aluguelRepository, AgenciaRepository agenciaRepository, DevolucaoRepository devolucaoRepository) {
+        super(aluguelRepository, agenciaRepository, devolucaoRepository);
     }
 
     public double calcularDesconto(long dias, double valor) {

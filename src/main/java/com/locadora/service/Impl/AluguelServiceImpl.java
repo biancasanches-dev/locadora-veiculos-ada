@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class AluguelServiceImpl implements AluguelService {
-    private AgenciaRepository agenciaRepository;
-    private VeiculoRepository veiculoRepository;
-    private ClienteRepository clienteRepository;
-    private AluguelRepository aluguelRepository;
+    private final AgenciaRepository agenciaRepository;
+    private final VeiculoRepository veiculoRepository;
+    private final ClienteRepository clienteRepository;
+    private final AluguelRepository aluguelRepository;
 
     public AluguelServiceImpl(AgenciaRepository agenciaRepository, VeiculoRepository veiculoRepository, ClienteRepository clienteRepository, AluguelRepository aluguelRepository) {
         this.agenciaRepository = agenciaRepository;
@@ -59,16 +59,44 @@ public class AluguelServiceImpl implements AluguelService {
 
     @Override
     public void listarAlugueisPorCliente(String documento) {
+        Cliente cliente = clienteRepository.findByDocumento(documento);
+        Aluguel aluguel = aluguelRepository.findByCliente(cliente);
 
+        if (aluguel == null || cliente == null) {
+            throw new RuntimeException("Cliente não possui aluguéis");
+        }
+
+        System.out.println(aluguel);
     }
 
     @Override
     public void listarAlugueisPorVeiculo(String placa) {
+        Veiculo veiculo = veiculoRepository.findByPlaca(placa);
+        Aluguel aluguel = aluguelRepository.findByPlaca(placa);
 
+        if (aluguel == null || veiculo == null) {
+            throw new RuntimeException("Veículo não possui aluguéis");
+        }
+
+        System.out.println(aluguel);
     }
 
     @Override
     public void gerarComprovante(String placa, String documento) {
+        Veiculo veiculo = veiculoRepository.findByPlaca(placa);
+        Cliente cliente = clienteRepository.findByDocumento(documento);
+        Aluguel aluguel = aluguelRepository.findByPlaca(placa);
 
+        if (veiculo == null || cliente == null || aluguel == null) {
+            throw new RuntimeException("Veículo, cliente ou aluguel não encontrado");
+        }
+
+        System.out.println("**************************************");
+        System.out.println("*        Comprovante de Aluguel      *");
+        System.out.println("**************************************");
+        System.out.println("Cliente: " + cliente.nome());
+        System.out.println("Veículo: " + veiculo.getModelo());
+        System.out.println("Data de Aluguel: " + aluguel.getDataHoraAluguel());
+        System.out.println("Previsão de Devolução: " + aluguel.getPrevisaoDevolucao());
     }
 }

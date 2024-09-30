@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 
 public class Aluguel {
     private Long id;
-    private Veiculo veiculo;
-    private Cliente cliente;
-    private LocalDateTime dataHoraAluguel;
+    private final Veiculo veiculo;
+    private final Cliente cliente;
+    private final LocalDateTime dataHoraAluguel;
     private LocalDateTime previsaoDevolucao;
-    private Agencia agencia;
+    private final Agencia agencia;
 
     public Aluguel(Veiculo veiculo, Cliente cliente, LocalDateTime dataHoraAluguel, Agencia agencia) {
         this.veiculo = veiculo;
