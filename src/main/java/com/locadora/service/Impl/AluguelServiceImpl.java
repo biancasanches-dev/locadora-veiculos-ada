@@ -37,6 +37,10 @@ public class AluguelServiceImpl implements AluguelService {
             throw new RuntimeException("Agência, veículo ou cliente não encontrado");
         }
 
+        if (veiculo.isDisponivel()) {
+            throw new RuntimeException("Veículo não disponível");
+        }
+
         Aluguel aluguel = new Aluguel(veiculo, cliente, dataHoraAluguel, agencia);
         aluguel.setPrevisaoDevolucao(dataHoraAluguel.plusDays(dias));
     }
